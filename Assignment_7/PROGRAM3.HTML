@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            width: 100%;
+            font-size: 16px;
+        }
+        button {
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Simple Calculator</h1>
+    
+    <!-- User Input Section -->
+    <label for="num1">Enter first number:</label>
+    <input type="number" id="num1" placeholder="First number">
+
+    <label for="num2">Enter second number:</label>
+    <input type="number" id="num2" placeholder="Second number">
+    
+    <label for="operation">Select operation:</label>
+    <select id="operation">
+        <option value="add">Addition (+)</option>
+        <option value="subtract">Subtraction (-)</option>
+        <option value="multiply">Multiplication (×)</option>
+        <option value="divide">Division (÷)</option>
+        <option value="modulus">Modulus (%)</option>
+        <option value="exponent">Exponentiation (**)</option>
+    </select>
+
+    <button onclick="performCalculation()">Calculate</button>
+
+    <!-- Result Section -->
+    <div class="result" id="result"></div>
+
+    <script>
+        function performCalculation() {
+            // Get user input values
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            const operation = document.getElementById('operation').value;
+
+            let result;
+
+            // Check if both numbers are provided
+            if (isNaN(num1) || isNaN(num2)) {
+                result = "Please enter valid numbers.";
+            } else {
+                // Perform the selected operation
+                switch (operation) {
+                    case 'add':
+                        result = num1 + num2;
+                        break;
+                    case 'subtract':
+                        result = num1 - num2;
+                        break;
+                    case 'multiply':
+                        result = num1 * num2;
+                        break;
+                    case 'divide':
+                        if (num2 === 0) {
+                            result = "Cannot divide by zero.";
+                        } else {
+                            result = num1 / num2;
+                        }
+                        break;
+                    case 'modulus':
+                        result = num1 % num2;
+                        break;
+                    case 'exponent':
+                        result = Math.pow(num1, num2);
+                        break;
+                    default:
+                        result = "Invalid operation.";
+                        break;
+                }
+            }
+
+            // Display the result
+            document.getElementById('result').innerText = "Result: " + result;
+        }
+    </script>
+
+</body>
+</html>
