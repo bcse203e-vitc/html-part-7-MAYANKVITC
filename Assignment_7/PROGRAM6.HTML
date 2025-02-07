@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Duplicates in an Array</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            width: 100%;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .highlight {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Find Duplicates in an Array</h1>
+    
+    <!-- User Input Section -->
+    <label for="arrayInput">Enter an array (comma separated values):</label>
+    <input type="text" id="arrayInput" placeholder="e.g. 1,2,3,4,5,2,3,6" oninput="findDuplicates()">
+
+    <!-- Result Section -->
+    <div class="result" id="duplicatesResult"></div>
+    <div class="result" id="uniqueResult"></div>
+
+    <script>
+        function findDuplicates() {
+            // Get the input value from the user and convert it to an array
+            const inputText = document.getElementById('arrayInput').value;
+            const inputArray = inputText.split(',').map(item => item.trim());  // Split by comma and remove any extra spaces
+            
+            // Find duplicates
+            const duplicates = findArrayDuplicates(inputArray);
+            
+            // Remove duplicates to create a unique array
+            const uniqueArray = [...new Set(inputArray)];
+
+            // Display the results
+            document.getElementById('duplicatesResult').innerHTML = `Duplicate values: ${duplicates.length ? duplicates.join(', ') : 'None'}`;
+            document.getElementById('uniqueResult').innerHTML = `Unique array: ${uniqueArray.join(', ')}`;
+        }
+
+        // Function to find duplicates in an array
+        function findArrayDuplicates(arr) {
+            const seen = new Set();
+            const duplicates = [];
+
+            arr.forEach(item => {
+                if (seen.has(item)) {
+                    duplicates.push(item);
+                } else {
+                    seen.add(item);
+                }
+            });
+
+            // Return unique duplicates (removing extra repetitions)
+            return [...new Set(duplicates)];
+        }
+    </script>
+
+</body>
+</html>
