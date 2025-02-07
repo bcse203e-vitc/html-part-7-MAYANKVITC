@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        table {
+            width: 80%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dynamic Table Generator</h1>
+
+    <!-- Input form to get number of rows and columns -->
+    <label for="numRows">Number of Rows:</label>
+    <input type="number" id="numRows" placeholder="Enter number of rows" min="1">
+
+    <label for="numCols">Number of Columns:</label>
+    <input type="number" id="numCols" placeholder="Enter number of columns" min="1">
+
+    <button onclick="generateTable()">Generate Table</button>
+
+    <!-- Container to display the generated table -->
+    <div id="tableContainer"></div>
+
+    <script>
+        function generateTable() {
+            // Get the number of rows and columns from the user inputs
+            const numRows = document.getElementById('numRows').value;
+            const numCols = document.getElementById('numCols').value;
+
+            // Check if valid inputs are given
+            if (numRows <= 0 || numCols <= 0) {
+                alert('Please enter valid numbers for rows and columns.');
+                return;
+            }
+
+            // Create a new table element
+            const table = document.createElement('table');
+
+            // Create the table rows and columns dynamically
+            for (let i = 0; i < numRows; i++) {
+                const row = document.createElement('tr'); // Create a row
+                for (let j = 0; j < numCols; j++) {
+                    const cell = document.createElement('td'); // Create a cell
+                    cell.textContent = `Row ${i + 1}, Col ${j + 1}`; // Add content to the cell
+                    row.appendChild(cell); // Append cell to the row
+                }
+                table.appendChild(row); // Append row to the table
+            }
+
+            // Clear any previous table and append the new one
+            const tableContainer = document.getElementById('tableContainer');
+            tableContainer.innerHTML = ''; // Clear previous table
+            tableContainer.appendChild(table); // Append the new table
+        }
+    </script>
+
+</body>
+</html>
