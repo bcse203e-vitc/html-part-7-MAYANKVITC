@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .message {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Guess the Number Game</h1>
+    <p>Guess the number between 1 and 100</p>
+
+    <input type="number" id="userGuess" placeholder="Enter your guess" min="1" max="100">
+    <button onclick="checkGuess()">Submit Guess</button>
+
+    <div id="resultMessage" class="message"></div>
+
+    <script>
+        // Generate a random number between 1 and 100
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
+
+        // Initialize the number of attempts
+        let attempts = 0;
+        const maxAttempts = 5;
+
+        // Function to check the guess
+        function checkGuess() {
+            const userGuess = parseInt(document.getElementById("userGuess").value);
+            const resultMessage = document.getElementById("resultMessage");
+            attempts++;
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                resultMessage.textContent = "Please enter a number between 1 and 100.";
+                return;
+            }
+
+            if (userGuess === randomNumber) {
+                resultMessage.textContent = `Congratulations! You guessed the correct number ${randomNumber}!`;
+                resultMessage.style.color = "green";
+                return;
+            }
+
+            if (attempts === maxAttempts) {
+                resultMessage.textContent = `Sorry! You've used all your attempts. The correct number was ${randomNumber}.`;
+                resultMessage.style.color = "red";
+                document.querySelector("button").disabled = true; // Disable the button after max attempts
+                return;
+            }
+
+            // Provide hint if the guess is too high or too low
+            if (userGuess > randomNumber) {
+                resultMessage.textContent = "Too high! Try again.";
+            } else if (userGuess < randomNumber) {
+                resultMessage.textContent = "Too low! Try again.";
+            }
+        }
+    </script>
+
+</body>
+</html>
