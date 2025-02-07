@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Second and Third Largest Numbers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            width: 100%;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Find Second and Third Largest Numbers in an Array</h1>
+    
+    <!-- User Input Section -->
+    <label for="arrayInput">Enter an array (comma separated values):</label>
+    <input type="text" id="arrayInput" placeholder="e.g. 5, 3, 9, 1, 6" oninput="findLargestNumbers()">
+
+    <!-- Result Section -->
+    <div class="result" id="secondLargestResult"></div>
+    <div class="result" id="thirdLargestResult"></div>
+
+    <script>
+        function findLargestNumbers() {
+            // Get the input value from the user and convert it to an array
+            const inputText = document.getElementById('arrayInput').value;
+            const inputArray = inputText.split(',').map(item => parseFloat(item.trim())).filter(item => !isNaN(item));
+
+            // Find the second and third largest numbers
+            const secondLargest = findSecondLargest(inputArray);
+            const thirdLargest = findThirdLargest(inputArray);
+
+            // Display the results
+            document.getElementById('secondLargestResult').innerHTML = 
+                `Second largest number: ${secondLargest !== null ? secondLargest : 'Not enough numbers'}`;
+            document.getElementById('thirdLargestResult').innerHTML = 
+                `Third largest number: ${thirdLargest !== null ? thirdLargest : 'Not enough numbers'}`;
+        }
+
+        // Function to find the second largest number in the array
+        function findSecondLargest(arr) {
+            const uniqueArr = [...new Set(arr)]; // Remove duplicates
+            if (uniqueArr.length < 2) return null;
+            uniqueArr.sort((a, b) => b - a); // Sort the array in descending order
+            return uniqueArr[1]; // Second largest number
+        }
+
+        // Function to find the third largest number in the array
+        function findThirdLargest(arr) {
+            const uniqueArr = [...new Set(arr)]; // Remove duplicates
+            if (uniqueArr.length < 3) return null;
+            uniqueArr.sort((a, b) => b - a); // Sort the array in descending order
+            return uniqueArr[2]; // Third largest number
+        }
+    </script>
+
+</body>
+</html>
