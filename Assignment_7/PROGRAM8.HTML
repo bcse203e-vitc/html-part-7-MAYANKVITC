@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort an Array Without Using sort()</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            width: 100%;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sort an Array Without Using sort()</h1>
+    
+    <!-- User Input Section -->
+    <label for="arrayInput">Enter an array of numbers (comma separated):</label>
+    <input type="text" id="arrayInput" placeholder="e.g. 5, 3, 9, 1, 6" oninput="sortArray()">
+
+    <label for="sortOrder">Choose sort order:</label>
+    <select id="sortOrder" onchange="sortArray()">
+        <option value="ascending">Ascending</option>
+        <option value="descending">Descending</option>
+    </select>
+
+    <!-- Result Section -->
+    <div class="result" id="sortedArrayResult"></div>
+
+    <script>
+        function sortArray() {
+            // Get the input array and sort order
+            const inputText = document.getElementById('arrayInput').value;
+            const inputArray = inputText.split(',').map(item => parseFloat(item.trim())).filter(item => !isNaN(item));
+            const sortOrder = document.getElementById('sortOrder').value;
+
+            // Sort the array using bubble sort (no Array.sort())
+            const sortedArray = bubbleSort(inputArray, sortOrder);
+
+            // Display the result
+            document.getElementById('sortedArrayResult').innerHTML = `Sorted Array: ${sortedArray.join(', ')}`;
+        }
+
+        // Bubble sort implementation
+        function bubbleSort(arr, order) {
+            let len = arr.length;
+            for (let i = 0; i < len; i++) {
+                for (let j = 0; j < len - i - 1; j++) {
+                    if ((order === 'ascending' && arr[j] > arr[j + 1]) || (order === 'descending' && arr[j] < arr[j + 1])) {
+                        // Swap elements
+                        let temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
+                }
+            }
+            return arr;
+        }
+    </script>
+
+</body>
+</html>
