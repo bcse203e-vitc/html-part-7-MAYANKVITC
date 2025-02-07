@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event-Driven Background Color Changer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            transition: background-color 0.5s;
+        }
+        button {
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        #randomButton {
+            background-color: #777;
+            color: white;
+        }
+        #redButton {
+            background-color: red;
+            color: white;
+        }
+        #greenButton {
+            background-color: green;
+            color: white;
+        }
+        #blueButton {
+            background-color: blue;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Click a Button to Change Background Color</h1>
+
+    <button id="redButton">Red</button>
+    <button id="greenButton">Green</button>
+    <button id="blueButton">Blue</button>
+    <button id="randomButton">Random</button>
+
+    <script>
+        // Function to change the background color
+        function changeBackgroundColor(color) {
+            document.body.style.backgroundColor = color;
+        }
+
+        // Event listeners for each button
+        document.getElementById('redButton').addEventListener('click', function() {
+            changeBackgroundColor('red');
+        });
+
+        document.getElementById('greenButton').addEventListener('click', function() {
+            changeBackgroundColor('green');
+        });
+
+        document.getElementById('blueButton').addEventListener('click', function() {
+            changeBackgroundColor('blue');
+        });
+
+        // Bonus challenge: Random color generator
+        document.getElementById('randomButton').addEventListener('click', function() {
+            const randomColor = getRandomColor();
+            changeBackgroundColor(randomColor);
+        });
+
+        // Function to generate a random color
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+
+</body>
+</html>
