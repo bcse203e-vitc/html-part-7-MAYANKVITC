@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character and Word Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        input, textarea, button {
+            padding: 10px;
+            margin: 5px;
+            width: 100%;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .highlight {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Character and Word Counter</h1>
+    
+    <!-- User Input Section -->
+    <label for="inputText">Enter text:</label>
+    <textarea id="inputText" rows="6" placeholder="Enter your text here..." oninput="countCharactersWords()"></textarea>
+
+    <!-- Result Section -->
+    <div class="result">
+        <p id="charCount">Number of characters (including spaces): 0</p>
+        <p id="wordCount">Number of words: 0</p>
+        <p id="highlightedText"></p>
+    </div>
+
+    <script>
+        function countCharactersWords() {
+            const inputText = document.getElementById('inputText').value;
+
+            // Count characters (including spaces)
+            const charCount = inputText.length;
+
+            // Count words (split by spaces)
+            const words = inputText.trim().split(/\s+/);
+            const wordCount = words.length;
+
+            // Count repeated words
+            const wordFrequency = {};
+            words.forEach(word => {
+                const cleanWord = word.toLowerCase();
+                wordFrequency[cleanWord] = (wordFrequency[cleanWord] || 0) + 1;
+            });
+
+            // Highlight repeated words
+            const highlightedText = words.map(word => {
+                const cleanWord = word.toLowerCase();
+                if (wordFrequency[cleanWord] > 1) {
+                    return `<span class="highlight">${word}</span>`;
+                } else {
+                    return word;
+                }
+            }).join(' ');
+
+            // Display results
+            document.getElementById('charCount').innerText = `Number of characters (including spaces): ${charCount}`;
+            document.getElementById('wordCount').innerText = `Number of words: ${wordCount}`;
+            document.getElementById('highlightedText').innerHTML = `Text with repeated words highlighted: ${highlightedText}`;
+        }
+    </script>
+
+</body>
+</html>
